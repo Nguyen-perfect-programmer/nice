@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #FF69B4, #FF6347, #FF4500, #FFD700);
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            width: 100%;
+            height: 100%;
+            background: #FFD700;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1s ease-in-out;
+            transform-origin: top;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+        }
+
+        .letter {
+            width: 320px;
+            height: 220px;
+            background: white;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            transition: transform 1s ease-in-out, opacity 1s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            opacity: 0;
+        }
+
+        .envelope-container.open .envelope {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-container.open .letter {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .card {
+            position: relative;
+            width: 60%;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid #FF66CC;
+            box-sizing: border-box;
+            background-image: url('images/nen.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none; 
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .image {
+            width: 80%;
+            max-height: 300px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .message {
+            font-size: 26px;
+            font-weight: bold;
+            color: #D63384;
+            margin-top: 15px;
+        }
+
+        .running-text-container {
+            background-color: #FFF0F5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            width: 100%;
+            height: 60px;
+            border: 1px solid #FF66CC;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .running-text {
+            font-size: 20px;
+            font-weight: bold;
+            white-space: nowrap;
+            position: absolute;
+            animation: runText 10s linear infinite;
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes runText {
+            0% { left: 100%; }
+            100% { left: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-container" onclick="openEnvelope()">
+        <div class="envelope">📩</div>
+        <div class="letter">
+            
+        </div>
+    </div>
+    
+    <div class="card" id="birthdayCard">
+        <img src="images/image.jpg" alt="Happy Birthday" class="image">
+        <p class="message">Happy BirthDay Nguyễn Trúc Phương</p>
+        <p class="message" style="font-size: 36px; color: #D63384; margin-top: 10px;">🎉🎂🎁</p>
+        <div class="running-text-container">
+            <div class="running-text">
+                🎉 Chúc chị có một sinh nhật thật vui vẻ, ngày càng xinh đẹp và tràn đầy yêu thương nhó :3 🎉
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            let envelopeContainer = document.querySelector(".envelope-container");
+            let birthdayCard = document.getElementById("birthdayCard");
+    
+            if (!envelopeContainer.classList.contains("open")) {
+                envelopeContainer.classList.add("open");
+    
+                setTimeout(() => {
+                    envelopeContainer.style.display = "none";
+                    birthdayCard.style.display = "block";
+    
+   
+                    setTimeout(() => {
+                        birthdayCard.style.opacity = "1";
+                    }, 200);
+                }, 1000);
+            }
+        }
+    </script>
+    
