@@ -90,10 +90,11 @@
             animation: none;
         }
 
-        @keyframes floatEnvelope {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+       @keyframes runText {
+    from { transform: translateX(100vw); } 
+    to { transform: translateX(-100%); } 
+}
+
 
         .envelope {
             width: 100%;
