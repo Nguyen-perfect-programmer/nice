@@ -17,6 +17,61 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            animation: gradientBG 10s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: sparkleFade 2s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes sparkleFade {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5) translateY(20px); }
+        }
+
+        .corner-decoration-left, .corner-decoration-right {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #FF1493, transparent);
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            animation: bounceAndGlow 2s infinite ease-in-out;
+        }
+
+        .corner-decoration-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .corner-decoration-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        @keyframes bounceAndGlow {
+            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 10px rgba(255, 20, 147, 0.5); }
+            50% { transform: translateY(-10px) scale(1.1); box-shadow: 0 0 20px rgba(255, 20, 147, 1); }
         }
 
         .envelope-container {
@@ -25,6 +80,19 @@
             height: 200px;
             cursor: pointer;
             perspective: 1000px;
+            transition: all 0.3s ease;
+            animation: floatEnvelope 2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        .envelope-container:hover {
+            transform: scale(1.05);
+            animation: none;
+        }
+
+        @keyframes floatEnvelope {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .envelope {
@@ -40,8 +108,14 @@
             transition: transform 1s ease-in-out;
             transform-origin: top;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.7);
             font-size: 24px;
+            animation: envelopeGlow 2s infinite alternate;
+        }
+
+        @keyframes envelopeGlow {
+            0% { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.7); }
+            100% { box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 1); }
         }
 
         .letter {
@@ -82,16 +156,22 @@
             padding: 20px;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255, 102, 204, 0.5);
             border: 2px solid #FF66CC;
             box-sizing: border-box;
             background-image: url('images/nen.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: none; 
+            display: none;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out, transform 0.5s ease;
+            animation: cardPop 0.8s ease-out forwards;
+        }
+
+        @keyframes cardPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .image {
@@ -101,6 +181,13 @@
             display: block;
             margin: 0 auto;
             border-radius: 10px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+        }
+
+        .image.fade-out {
+            opacity: 0;
+            transform: scale(0.9);
         }
 
         .message {
@@ -108,6 +195,14 @@
             font-weight: bold;
             color: #D63384;
             margin-top: 15px;
+            text-shadow: 1px 1px 5px rgba(214, 51, 132, 0.5);
+            animation: textBounce 2s infinite;
+        }
+
+        @keyframes textBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         .running-text-container {
@@ -119,7 +214,7 @@
             width: 100%;
             height: 60px;
             border: 1px solid #FF66CC;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
             box-sizing: border-box;
             position: relative;
         }
@@ -133,52 +228,186 @@
             top: 50%;
             left: 100%;
             transform: translateY(-50%);
+            color: #FF1493;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         @keyframes runText {
             0% { left: 100%; }
             100% { left: -100%; }
         }
+
+        #musicButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #FF69B4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        #musicButton:hover {
+            transform: scale(1.1);
+            background: #FF1493;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 20;
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #FF69B4;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            z-index: 20;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #FFD700;
+            font-size: 20px;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            animation: fadeInOut 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
+    <div class="corner-decoration-left">🎈</div>
+    <div class="corner-decoration-right">🥳</div>
+
+    <div class="loading" id="loading">
+        <div class="loader"></div>
+        <div class="loading-text">Mở nè...</div>
+    </div>
+
     <div class="envelope-container" onclick="openEnvelope()">
         <div class="envelope">📩</div>
-        <div class="letter">
-            
-        </div>
+        <div class="letter"></div>
     </div>
     
     <div class="card" id="birthdayCard">
-        <img src="images/image.jpg" alt="Happy Birthday" class="image">
+        <img src="images/image.jpg" alt="Happy Birthday" class="image" id="slideshowImage">
         <p class="message">Happy BirthDay Nguyễn Trúc Phương</p>
         <p class="message" style="font-size: 36px; color: #D63384; margin-top: 10px;">🎉🎂🎁</p>
         <div class="running-text-container">
             <div class="running-text">
-                🎉 Chúc chị có một sinh nhật thật vui vẻ, ngày càng xinh đẹp và tràn đầy yêu thương nhó :3 🎉
+                🎉 Chúc chị có một sinh nhật thật vui vẻ, ngày càng xinh đẹp và tràn đầy yêu thương nhó :3 🙈
             </div>
         </div>
     </div>
 
+    <audio id="bg-music" loop>
+        <source src="audio/birthday_song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="musicButton" onclick="toggleMusic()">🔊 Bật nhạc</button>
+
     <script>
+        let music = document.getElementById("bg-music");
+        let musicButton = document.getElementById("musicButton");
+        let isPlaying = false;
+
+        function createSparkles() {
+            let sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+            sparkle.style.left = Math.random() * 100 + "vw";
+            sparkle.style.top = Math.random() * 100 + "vh";
+            sparkle.style.animationDelay = Math.random() * 1 + "s";
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+        setInterval(createSparkles, 30);
+
+        const images = [
+            "images/image.jpg",
+            "images/image2.jpg",
+            "images/image1.jpg",
+            
+        ];
+        let currentImageIndex = 0;
+        const slideshowImage = document.getElementById("slideshowImage");
+
+        function changeImage() {
+            slideshowImage.classList.add('fade-out');
+            setTimeout(() => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                slideshowImage.src = images[currentImageIndex];
+                slideshowImage.classList.remove('fade-out');
+            }, 500);
+        }
+
+        function startSlideshow() {
+            setInterval(changeImage, 3000);
+        }
+
         function openEnvelope() {
             let envelopeContainer = document.querySelector(".envelope-container");
             let birthdayCard = document.getElementById("birthdayCard");
-    
+            let loading = document.getElementById("loading");
+
             if (!envelopeContainer.classList.contains("open")) {
                 envelopeContainer.classList.add("open");
-    
+
+                loading.style.display = "block";
+
                 setTimeout(() => {
                     envelopeContainer.style.display = "none";
+                    loading.style.display = "none";
                     birthdayCard.style.display = "block";
-    
-   
-                    setTimeout(() => {
-                        birthdayCard.style.opacity = "1";
+                    setTimeout(() => { 
+                        birthdayCard.style.opacity = "1"; 
+                        playMusic();
+                        startSlideshow();
                     }, 200);
                 }, 1000);
             }
         }
-    </script>
     
+        function playMusic() {
+            music.play().catch(error => console.log("Trình duyệt chặn tự động phát nhạc:", error));
+            isPlaying = true;
+            musicButton.innerHTML = "🔇 Tắt Nhạc";
+        }
+    
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                musicButton.innerHTML = "🔊 Bật Nhạc";
+            } else {
+                music.play();
+                isPlaying = true;
+                musicButton.innerHTML = "🔇 Tắt Nhạc";
+            }
+        }
+    </script>
+
+</body>
+</html>
