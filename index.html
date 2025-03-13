@@ -90,11 +90,10 @@
             animation: none;
         }
 
-       @keyframes runText {
-    from { transform: translateX(100vw); } 
-    to { transform: translateX(-100%); } 
-}
-
+        @keyframes floatEnvelope {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
 
         .envelope {
             width: 100%;
@@ -218,8 +217,8 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
     box-sizing: border-box;
     position: relative;
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 .running-text {
@@ -230,12 +229,16 @@
     animation: runText 10s linear infinite;
     color: #FF1493;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    width: max-content; /* Giúp chữ có đủ không gian hiển thị */
+    padding-right: 100vw; /* Tạo khoảng trống để chữ không bị cắt */
 }
 
 @keyframes runText {
-    from { transform: translateX(100%); }
+    from { transform: translateX(100vw); }
     to { transform: translateX(-100%); }
 }
+
+
 
 
         #musicButton {
