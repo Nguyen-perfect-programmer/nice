@@ -206,36 +206,36 @@
         }
 
         .running-text-container {
-            background-color: #FFF0F5;
-            padding: 10px 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            overflow: hidden;
-            width: 100%;
-            height: 60px;
-            border: 1px solid #FF66CC;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
-            box-sizing: border-box;
-            position: relative;
-        }
+    background-color: #FFF0F5;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    width: 100%;
+    height: 60px;
+    border: 1px solid #FF66CC;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
+    box-sizing: border-box;
+    position: relative;
+    display: flex; 
+    align-items: center; 
+}
 
-        .running-text {
-            font-size: 20px;
-            font-weight: bold;
-            white-space: nowrap;
-            position: absolute;
-            animation: runText 10s linear infinite;
-            top: 50%;
-            left: 100%;
-            transform: translateY(-50%);
-            color: #FF1493;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
+.running-text {
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    position: absolute;
+    animation: runText 10s linear infinite;
+    color: #FF1493;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
 
-        @keyframes runText {
-            0% { left: 100%; }
-            100% { left: -100%; }
-        }
+@keyframes runText {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+}
+
 
         #musicButton {
             position: fixed;
