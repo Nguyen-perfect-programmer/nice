@@ -443,69 +443,6 @@
             100% { transform: translateY(-200%) scale(1); opacity: 0; }
         }
 
-        /* Dòng chữ chúc mừng mới */
-        .greeting-message {
-            position: relative;
-            margin-top: 20px;
-            padding: 15px 20px;
-            background: linear-gradient(45deg, #FF69B4, #FFD700, #FF1493, #FF69B4);
-            background-size: 200%;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 102, 204, 0.5);
-            animation: gradientShift 5s ease infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 60px;
-            z-index: 5;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .greeting-text {
-            font-size: 20px;
-            font-weight: bold;
-            color: #FFFFFF;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 255, 255, 0.8);
-            animation: fadeInOutText 4s ease-in-out infinite, subtleRotate 8s ease-in-out infinite;
-            opacity: 0;
-            text-align: center;
-            display: inline-block;
-        }
-
-        @keyframes fadeInOutText {
-            0% { opacity: 0; transform: translateY(10px); }
-            50% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-10px); }
-        }
-
-        @keyframes subtleRotate {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            75% { transform: rotate(-2deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        /* Giữ nguyên các hiệu ứng glow-dot */
-        .glow-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #FFD700;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 1);
-            animation: glowBlink 1.5s infinite;
-        }
-
-        @keyframes glowBlink {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
-        }
-
         .side-decoration {
             width: 120px;
             height: 450px;
@@ -655,6 +592,54 @@
             animation: glowingText 3s ease-in-out infinite;
         }
 
+        .running-text-container {
+            background-color: #FFF0F5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            width: 100%;
+            height: 60px;
+            border: 1px solid #FF66CC;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .running-text {
+            font-size: 20px;
+            font-weight: bold;
+            white-space: nowrap;
+            position: absolute;
+            color: #FF1493;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            animation: runText linear infinite;
+            animation-duration: 15s;
+        }
+
+        @keyframes runText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .glow-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 1);
+            animation: glowBlink 1.5s infinite;
+        }
+
+        @keyframes glowBlink {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
         .bubble {
             position: absolute;
             width: 20px;
@@ -733,9 +718,13 @@
     <div class="envelope-container" onclick="openEnvelope()">
         <div class="envelope">📩</div>
         <div class="letter"></div>
+        <!-- Hào quang gradient -->
         <div class="gradient-aura"></div>
+        <!-- Sao rơi -->
         <div class="star-fall" id="starFall"></div>
+        <!-- Trái tim bay lên -->
         <div class="heart-rise" id="heartRise"></div>
+        <!-- Văn bản gợi ý -->
         <div class="click-hint">Chạm vào để mở</div>
     </div>
     
@@ -744,17 +733,20 @@
         <img src="images/image.jpg" alt="Happy Birthday" class="image" id="slideshowImage">
         <p class="message-smooth">Happy BirthDay Nguyễn Trúc Phương</p>
         <p class="emoji-line">🎉🎂🎁</p>
-        <div class="greeting-message" id="greetingMessage">
-            <span class="greeting-text">
+        <div class="running-text-container">
+            <div class="running-text">
                 🎉 Chúc chị có một sinh nhật thật vui vẻ, ngày càng xinh đẹp và tràn đầy yêu thương nhó :3 🙈
-            </span>
+            </div>
             <div class="glow-dot" style="top: 10%; left: 10%;"></div>
             <div class="glow-dot" style="top: 10%; right: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; left: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; right: 10%;"></div>
         </div>
+        <!-- Thêm hiệu ứng ánh sáng lung linh -->
         <div class="glitter-layer" id="glitterLayer"></div>
+        <!-- Thêm xoáy sáng -->
         <div class="light-spiral" id="lightSpiral"></div>
+        <!-- Thêm bóng bay -->
         <div class="balloon-rise" id="balloonRise"></div>
     </div>
     
@@ -786,6 +778,7 @@
         }
         setInterval(createSparkles, 30);
 
+        // Sao rơi từ trên xuống
         function createStarFall() {
             const starContainer = document.getElementById("starFall");
             function addStar() {
@@ -799,6 +792,7 @@
             setInterval(addStar, 300);
         }
 
+        // Trái tim bay lên
         function createHeartRise() {
             const heartContainer = document.getElementById("heartRise");
             function addHeart() {
@@ -813,6 +807,7 @@
             setInterval(addHeart, 500);
         }
 
+        // Bong bóng bay ra từ góc
         function createBubblesFromCorner() {
             const leftCorner = document.querySelector(".corner-decoration-left");
             const rightCorner = document.querySelector(".corner-decoration-right");
@@ -836,6 +831,7 @@
             setInterval(addBubbleFromRight, 400);
         }
 
+        // Confetti rơi từ góc
         function createConfettiFromCorner() {
             const leftCorner = document.querySelector(".corner-decoration-left");
             const rightCorner = document.querySelector(".corner-decoration-right");
@@ -861,6 +857,7 @@
             setInterval(addConfettiFromRight, 300);
         }
 
+        // Sóng lan tỏa từ góc
         function createWavesFromCorner() {
             const leftCorner = document.querySelector(".corner-decoration-left");
             const rightCorner = document.querySelector(".corner-decoration-right");
@@ -916,6 +913,7 @@
             }
         }
 
+        // Hiệu ứng ánh sáng lung linh
         function createGlitter() {
             const glitterLayer = document.getElementById("glitterLayer");
             function addGlitter() {
@@ -930,6 +928,7 @@
             setInterval(addGlitter, 200);
         }
 
+        // Hiệu ứng xoáy sáng
         function createLightSpiral() {
             const spiralContainer = document.getElementById("lightSpiral");
             function addSpiral() {
@@ -944,6 +943,7 @@
             setInterval(addSpiral, 500);
         }
 
+        // Hiệu ứng bóng bay bay lên
         function createBalloons() {
             const balloonContainer = document.getElementById("balloonRise");
             const balloonEmojis = ["🎈", "🎈", "🎈", "🎈"];
@@ -972,9 +972,11 @@
             const oldImage = slideshowImage;
             oldImage.classList.add('fade-out');
 
+            // Tạo hiệu ứng chấm sáng
             createImageSparkles();
 
             setTimeout(() => {
+                // Chọn ngẫu nhiên ảnh mới
                 let newIndex;
                 do {
                     newIndex = Math.floor(Math.random() * images.length);
@@ -1122,6 +1124,7 @@
             }
         }
 
+        // Khởi động các hiệu ứng ngay khi trang tải
         createStarFall();
         createHeartRise();
         createBubblesFromCorner();
