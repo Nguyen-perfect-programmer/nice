@@ -71,15 +71,87 @@
             font-size: 30px;
             color: #FFD700;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-            animation: bounceAndGlow 2s infinite ease-in-out;
+            animation: rotateAndGlow 3s infinite ease-in-out, bounceAndGlow 2s infinite ease-in-out;
+            overflow: hidden;
         }
 
         .corner-decoration-left { top: 20px; left: 20px; }
         .corner-decoration-right { top: 20px; right: 20px; }
 
+        @keyframes rotateAndGlow {
+            0% { transform: rotate(0deg); box-shadow: 0 0 10px rgba(255, 20, 147, 0.5); }
+            50% { transform: rotate(10deg); box-shadow: 0 0 20px rgba(255, 215, 0, 1); }
+            100% { transform: rotate(0deg); box-shadow: 0 0 10px rgba(255, 20, 147, 0.5); }
+        }
+
         @keyframes bounceAndGlow {
-            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 10px rgba(255, 20, 147, 0.5); }
-            50% { transform: translateY(-10px) scale(1.1); box-shadow: 0 0 20px rgba(255, 20, 147, 1); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        /* Bong bóng bay ra từ góc */
+        .bubble-from-corner {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 102, 204, 0.7);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 102, 204, 0.5);
+            animation: bubbleRiseFromCorner 2s ease-out forwards;
+        }
+
+        @keyframes bubbleRiseFromCorner {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+            100% { transform: translate(50px, -50px) scale(1); opacity: 0; }
+        }
+
+        /* Confetti rơi */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="random"><rect x="10" y="10" width="4" height="4" fill="%23FF69B4"/><rect x="12" y="12" width="4" height="4" fill="%23FFD700"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Sóng lan tỏa từ góc */
+        .wave-from-corner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .corner-wave {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            animation: waveExpandFromCorner 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes waveExpandFromCorner {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        /* Nhấp nháy biểu tượng */
+        .blink-icon {
+            animation: blinkAndScale 1.5s infinite ease-in-out;
+        }
+
+        @keyframes blinkAndScale {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .envelope-container {
@@ -473,8 +545,8 @@
     </style>
 </head>
 <body>
-    <div class="corner-decoration-left">🎈</div>
-    <div class="corner-decoration-right">🥳</div>
+    <div class="corner-decoration-left blink-icon">🎈</div>
+    <div class="corner-decoration-right blink-icon">🥳</div>
 
     <div class="loading" id="loading">
         <div class="loader"></div>
@@ -495,7 +567,7 @@
         <!-- Trái tim bay lên -->
         <div class="heart-rise" id="heartRise"></div>
         <!-- Văn bản gợi ý -->
-        <div class="click-hint">Click to Open </div>
+        <div class="click-hint">Click to Open 🎉</div>
     </div>
     
     <div class="card" id="birthdayCard">
@@ -568,6 +640,76 @@
                 setTimeout(() => heart.remove(), 2000);
             }
             setInterval(addHeart, 500);
+        }
+
+        // Bong bóng bay ra từ góc
+        function createBubblesFromCorner() {
+            const leftCorner = document.querySelector(".corner-decoration-left");
+            const rightCorner = document.querySelector(".corner-decoration-right");
+            function addBubbleFromLeft() {
+                let bubble = document.createElement("div");
+                bubble.classList.add("bubble-from-corner");
+                bubble.style.left = "50%";
+                bubble.style.top = "50%";
+                leftCorner.appendChild(bubble);
+                setTimeout(() => bubble.remove(), 2000);
+            }
+            function addBubbleFromRight() {
+                let bubble = document.createElement("div");
+                bubble.classList.add("bubble-from-corner");
+                bubble.style.left = "50%";
+                bubble.style.top = "50%";
+                rightCorner.appendChild(bubble);
+                setTimeout(() => bubble.remove(), 2000);
+            }
+            setInterval(addBubbleFromLeft, 400);
+            setInterval(addBubbleFromRight, 400);
+        }
+
+        // Confetti rơi từ góc
+        function createConfettiFromCorner() {
+            const leftCorner = document.querySelector(".corner-decoration-left");
+            const rightCorner = document.querySelector(".corner-decoration-right");
+            function addConfettiFromLeft() {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = `${Math.random() * 60}px`;
+                confetti.style.top = "0";
+                confetti.style.animationDuration = `${2 + Math.random()}s`;
+                leftCorner.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+            function addConfettiFromRight() {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = `${Math.random() * 60}px`;
+                confetti.style.top = "0";
+                confetti.style.animationDuration = `${2 + Math.random()}s`;
+                rightCorner.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+            setInterval(addConfettiFromLeft, 300);
+            setInterval(addConfettiFromRight, 300);
+        }
+
+        // Sóng lan tỏa từ góc
+        function createWavesFromCorner() {
+            const leftCorner = document.querySelector(".corner-decoration-left");
+            const rightCorner = document.querySelector(".corner-decoration-right");
+            function addWaveFromLeft() {
+                let wave = document.createElement("div");
+                wave.classList.add("corner-wave");
+                leftCorner.appendChild(wave);
+                setTimeout(() => wave.remove(), 2000);
+            }
+            function addWaveFromRight() {
+                let wave = document.createElement("div");
+                wave.classList.add("corner-wave");
+                rightCorner.appendChild(wave);
+                setTimeout(() => wave.remove(), 2000);
+            }
+            setInterval(addWaveFromLeft, 500);
+            setInterval(addWaveFromRight, 500);
         }
 
         function createFirework(x, y) {
@@ -737,6 +879,9 @@
         // Khởi động các hiệu ứng ngay khi trang tải
         createStarFall();
         createHeartRise();
+        createBubblesFromCorner();
+        createConfettiFromCorner();
+        createWavesFromCorner();
     </script>
 </body>
 </html>
