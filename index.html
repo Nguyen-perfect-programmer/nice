@@ -260,22 +260,46 @@
             100% { transform: translateY(-100px) scale(1); opacity: 0; }
         }
 
-        /* Văn bản gợi ý "Click to Open" */
+        /* Văn bản gợi ý "Chạm vào để mở" */
         .click-hint {
             position: absolute;
             bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 18px;
-            color: #FFD700;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
-            animation: hintBlink 1.5s ease-in-out infinite;
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFEA00;
+            text-shadow: 0 0 15px rgba(255, 234, 0, 0.9), 0 0 25px rgba(255, 234, 0, 0.7);
+            animation: hintBlink 1.2s ease-in-out infinite;
             z-index: 10;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
         @keyframes hintBlink {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        }
+
+        .loading-text {
+            color: #FFEA00;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-shadow: 0 0 15px rgba(255, 234, 0, 0.9), 0 0 25px rgba(255, 234, 0, 0.7);
+            animation: fadeInOut 1.2s ease-in-out infinite;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.6; transform: scale(1); }
         }
 
         .letter {
@@ -311,7 +335,7 @@
             background: white;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255, 102, 204, 0.5);
-            border: 2px solid #FF66CC;
+            border: 2px solid transparent;
             box-sizing: border-box;
             background-image: url('images/nen.jpg');
             background-size: cover;
@@ -323,11 +347,100 @@
             animation: cardPop 0.8s ease-out forwards;
             overflow: hidden;
             position: relative;
+            animation: rainbowGlow 4s ease-in-out infinite;
         }
 
         @keyframes cardPop {
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes rainbowGlow {
+            0% { border-color: #FF69B4; box-shadow: 0 0 15px #FF69B4; }
+            25% { border-color: #FFD700; box-shadow: 0 0 15px #FFD700; }
+            50% { border-color: #FF1493; box-shadow: 0 0 15px #FF1493; }
+            75% { border-color: #FF4500; box-shadow: 0 0 15px #FF4500; }
+            100% { border-color: #FF69B4; box-shadow: 0 0 15px #FF69B4; }
+        }
+
+        /* Hiệu ứng ánh sáng lung linh trên thiệp */
+        .glitter {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 1);
+            animation: glitterMove 3s linear infinite;
+        }
+
+        @keyframes glitterMove {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+            50% { transform: translate(20px, -20px) scale(1); opacity: 1; }
+            100% { transform: translate(40px, -40px) scale(0.5); opacity: 0; }
+        }
+
+        /* Viền hoa hoặc dây ruy băng */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed #FF69B4;
+            border-radius: 20px;
+            z-index: -1;
+            animation: rotateBorder 10s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Xoáy sáng */
+        .light-spiral {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .spiral {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50%;
+            animation: spiralSpin 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes spiralSpin {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Bóng bay bay lên */
+        .balloon-rise {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 20px;
+            animation: balloonRise 5s ease-out forwards;
+        }
+
+        @keyframes balloonRise {
+            0% { transform: translateY(100%) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-200%) scale(1); opacity: 0; }
         }
 
         .side-decoration {
@@ -454,7 +567,7 @@
             color: #D63384;
             text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
             margin-top: 15px;
-            animation: bounceSmooth 2s ease-in-out infinite;
+            animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
             position: relative;
             z-index: 5;
         }
@@ -464,12 +577,19 @@
             50% { transform: translateY(-5px); }
         }
 
+        @keyframes glowingText {
+            0% { color: #D63384; text-shadow: 0 0 10px rgba(214, 51, 132, 0.5); }
+            50% { color: #FF1493; text-shadow: 0 0 20px rgba(255, 20, 147, 0.8); }
+            100% { color: #D63384; text-shadow: 0 0 10px rgba(214, 51, 132, 0.5); }
+        }
+
         .emoji-line {
             font-size: 40px;
             color: #D63384;
             margin-top: 10px;
             position: relative;
             z-index: 5;
+            animation: glowingText 3s ease-in-out infinite;
         }
 
         .running-text-container {
@@ -580,24 +700,10 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .loading-text {
-            color: #FFD700;
-            font-size: 20px;
-            margin-top: 10px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-            animation: fadeInOut 1.5s ease-in-out infinite;
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
     </style>
 </head>
 <body>
-    <div class="corner-decoration-left blink-icon">🎈</div>
+    <div class="corner-decoration-left blink-icon">🥑</div>
     <div class="corner-decoration-right blink-icon">🥳</div>
 
     <div class="loading" id="loading">
@@ -619,7 +725,7 @@
         <!-- Trái tim bay lên -->
         <div class="heart-rise" id="heartRise"></div>
         <!-- Văn bản gợi ý -->
-        <div class="click-hint">Click to Open 🎉</div>
+        <div class="click-hint">Chạm vào để mở</div>
     </div>
     
     <div class="card" id="birthdayCard">
@@ -636,6 +742,12 @@
             <div class="glow-dot" style="bottom: 10%; left: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; right: 10%;"></div>
         </div>
+        <!-- Thêm hiệu ứng ánh sáng lung linh -->
+        <div class="glitter-layer" id="glitterLayer"></div>
+        <!-- Thêm xoáy sáng -->
+        <div class="light-spiral" id="lightSpiral"></div>
+        <!-- Thêm bóng bay -->
+        <div class="balloon-rise" id="balloonRise"></div>
     </div>
     
     <div class="side-decoration right" id="rightDecoration">
@@ -801,6 +913,52 @@
             }
         }
 
+        // Hiệu ứng ánh sáng lung linh
+        function createGlitter() {
+            const glitterLayer = document.getElementById("glitterLayer");
+            function addGlitter() {
+                let glitter = document.createElement("div");
+                glitter.classList.add("glitter");
+                glitter.style.left = `${Math.random() * 100}%`;
+                glitter.style.top = `${Math.random() * 100}%`;
+                glitter.style.animationDelay = `${Math.random() * 2}s`;
+                glitterLayer.appendChild(glitter);
+                setTimeout(() => glitter.remove(), 3000);
+            }
+            setInterval(addGlitter, 200);
+        }
+
+        // Hiệu ứng xoáy sáng
+        function createLightSpiral() {
+            const spiralContainer = document.getElementById("lightSpiral");
+            function addSpiral() {
+                let spiral = document.createElement("div");
+                spiral.classList.add("spiral");
+                spiral.style.left = `${Math.random() * 100}%`;
+                spiral.style.top = `${Math.random() * 100}%`;
+                spiral.style.animationDelay = `${Math.random() * 2}s`;
+                spiralContainer.appendChild(spiral);
+                setTimeout(() => spiral.remove(), 4000);
+            }
+            setInterval(addSpiral, 500);
+        }
+
+        // Hiệu ứng bóng bay bay lên
+        function createBalloons() {
+            const balloonContainer = document.getElementById("balloonRise");
+            const balloonEmojis = ["🎈", "🎈", "🎈", "🎈"];
+            function addBalloon() {
+                let balloon = document.createElement("div");
+                balloon.classList.add("balloon");
+                balloon.innerHTML = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.animationDuration = `${3 + Math.random() * 2}s`;
+                balloonContainer.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 5000);
+            }
+            setInterval(addBalloon, 800);
+        }
+
         const images = [
             "images/image.jpg",
             "images/image2.jpg",
@@ -822,7 +980,7 @@
                 let newIndex;
                 do {
                     newIndex = Math.floor(Math.random() * images.length);
-                } while (newIndex === currentImageIndex); // Đảm bảo không lặp lại ảnh hiện tại
+                } while (newIndex === currentImageIndex);
                 currentImageIndex = newIndex;
 
                 oldImage.src = images[currentImageIndex];
@@ -836,7 +994,7 @@
 
         function createImageSparkles() {
             const sparkleContainer = document.getElementById("imageSparkle");
-            sparkleContainer.innerHTML = ''; // Xóa các chấm cũ
+            sparkleContainer.innerHTML = '';
             for (let i = 0; i < 10; i++) {
                 let sparkle = document.createElement("div");
                 sparkle.classList.add("sparkle-dot");
@@ -853,7 +1011,7 @@
         }
 
         function startSlideshow() {
-            setInterval(changeImage, 4000); // Chuyển ảnh mỗi 4 giây
+            setInterval(changeImage, 4000);
         }
 
         function createParticleSwirl() {
@@ -936,6 +1094,9 @@
                         createParticleSwirl();
                         createLightWave();
                         createBubbles();
+                        createGlitter();
+                        createLightSpiral();
+                        createBalloons();
                         startFireworks(cardRect);
                         setTimeout(() => {
                             stopFireworks();
