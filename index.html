@@ -322,6 +322,7 @@
             transition: opacity 1s ease-in-out, transform 0.5s ease;
             animation: cardPop 0.8s ease-out forwards;
             overflow: hidden;
+            position: relative;
         }
 
         @keyframes cardPop {
@@ -388,13 +389,64 @@
             display: block;
             margin: 0 auto;
             border-radius: 10px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 1;
             z-index: 5;
             position: relative;
+            animation: imageGlow 1.5s infinite alternate;
         }
 
-        .image.fade-out { opacity: 0; transform: scale(0.9); }
+        @keyframes imageGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 0 25px rgba(255, 105, 180, 0.9); }
+        }
+
+        .image.fade-out {
+            opacity: 0;
+            transform: scale(0.9);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image.fade-in {
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: zoomAndRotate 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes zoomAndRotate {
+            0% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Hiệu ứng chấm sáng quanh ảnh khi chuyển */
+        .image-sparkle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .sparkle-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkleDotFade 1.5s ease-in-out;
+        }
+
+        @keyframes sparkleDotFade {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(0); }
+        }
 
         .message-smooth {
             font-size: 36px;
@@ -571,6 +623,7 @@
     </div>
     
     <div class="card" id="birthdayCard">
+        <div class="image-sparkle" id="imageSparkle"></div>
         <img src="images/image.jpg" alt="Happy Birthday" class="image" id="slideshowImage">
         <p class="message-smooth">Happy BirthDay Nguyễn Trúc Phương</p>
         <p class="emoji-line">🎉🎂🎁</p>
@@ -755,18 +808,52 @@
         ];
         let currentImageIndex = 0;
         const slideshowImage = document.getElementById("slideshowImage");
+        const imageSparkle = document.getElementById("imageSparkle");
 
         function changeImage() {
-            slideshowImage.classList.add('fade-out');
+            const oldImage = slideshowImage;
+            oldImage.classList.add('fade-out');
+
+            // Tạo hiệu ứng chấm sáng
+            createImageSparkles();
+
             setTimeout(() => {
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                slideshowImage.src = images[currentImageIndex];
-                slideshowImage.classList.remove('fade-out');
-            }, 500);
+                // Chọn ngẫu nhiên ảnh mới
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * images.length);
+                } while (newIndex === currentImageIndex); // Đảm bảo không lặp lại ảnh hiện tại
+                currentImageIndex = newIndex;
+
+                oldImage.src = images[currentImageIndex];
+                oldImage.classList.remove('fade-out');
+                oldImage.classList.add('fade-in');
+                setTimeout(() => {
+                    oldImage.classList.remove('fade-in');
+                }, 1200);
+            }, 1200);
+        }
+
+        function createImageSparkles() {
+            const sparkleContainer = document.getElementById("imageSparkle");
+            sparkleContainer.innerHTML = ''; // Xóa các chấm cũ
+            for (let i = 0; i < 10; i++) {
+                let sparkle = document.createElement("div");
+                sparkle.classList.add("sparkle-dot");
+                const angle = (i / 10) * Math.PI * 2;
+                const radius = 50 + Math.random() * 50;
+                const x = 50 + Math.cos(angle) * radius;
+                const y = 50 + Math.sin(angle) * radius;
+                sparkle.style.left = `${x}%`;
+                sparkle.style.top = `${y}%`;
+                sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+                sparkleContainer.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1500);
+            }
         }
 
         function startSlideshow() {
-            setInterval(changeImage, 3000);
+            setInterval(changeImage, 4000); // Chuyển ảnh mỗi 4 giây
         }
 
         function createParticleSwirl() {
