@@ -89,7 +89,6 @@
             50% { transform: translateY(-10px) scale(1.1); }
         }
 
-        /* Bong bóng bay ra từ góc */
         .bubble-from-corner {
             position: absolute;
             width: 15px;
@@ -105,7 +104,6 @@
             100% { transform: translate(50px, -50px) scale(1); opacity: 0; }
         }
 
-        /* Confetti rơi */
         .confetti {
             position: absolute;
             width: 8px;
@@ -120,7 +118,6 @@
             100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
         }
 
-        /* Sóng lan tỏa từ góc */
         .wave-from-corner {
             position: absolute;
             width: 100%;
@@ -144,7 +141,6 @@
             100% { transform: scale(2); opacity: 0; }
         }
 
-        /* Nhấp nháy biểu tượng */
         .blink-icon {
             animation: blinkAndScale 1.5s infinite ease-in-out;
         }
@@ -198,7 +194,6 @@
             100% { box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 1); }
         }
 
-        /* Hào quang gradient */
         .gradient-aura {
             position: absolute;
             width: 120%;
@@ -216,7 +211,6 @@
             50% { background: radial-gradient(circle, rgba(255, 105, 180, 0.5), transparent); }
         }
 
-        /* Sao rơi từ trên xuống */
         .star-fall {
             position: absolute;
             width: 100%;
@@ -239,7 +233,6 @@
             100% { transform: translateY(300px) rotate(360deg); opacity: 0; }
         }
 
-        /* Trái tim bay lên */
         .heart-rise {
             position: absolute;
             width: 100%;
@@ -260,7 +253,6 @@
             100% { transform: translateY(-100px) scale(1); opacity: 0; }
         }
 
-        /* Văn bản gợi ý "Chạm vào để mở" */
         .click-hint {
             position: absolute;
             bottom: -40px;
@@ -363,7 +355,6 @@
             100% { border-color: #FF69B4; box-shadow: 0 0 15px #FF69B4; }
         }
 
-        /* Hiệu ứng ánh sáng lung linh trên thiệp */
         .glitter {
             position: absolute;
             width: 5px;
@@ -380,7 +371,6 @@
             100% { transform: translate(40px, -40px) scale(0.5); opacity: 0; }
         }
 
-        /* Viền hoa hoặc dây ruy băng */
         .card::before {
             content: '';
             position: absolute;
@@ -399,7 +389,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Xoáy sáng */
         .light-spiral {
             position: absolute;
             width: 100%;
@@ -423,7 +412,6 @@
             100% { transform: scale(2) rotate(360deg); opacity: 0; }
         }
 
-        /* Bóng bay bay lên */
         .balloon-rise {
             position: absolute;
             width: 100%;
@@ -462,8 +450,115 @@
             100% { box-shadow: 0 0 30px rgba(255, 20, 147, 1), 0 0 40px rgba(255, 215, 0, 1); }
         }
 
-        .side-decoration.left { margin-right: 20px; }
-        .side-decoration.right { margin-left: 20px; }
+        .side-decoration.left {
+            margin-right: 20px;
+            position: relative;
+            animation: subtleShake 2s ease-in-out infinite;
+        }
+
+        .side-decoration.right {
+            margin-left: 20px;
+            position: relative;
+            animation: subtleShake 2s ease-in-out infinite;
+        }
+
+        @keyframes subtleShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .glitter-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 1);
+            animation: glitterFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes glitterFloat {
+            0% { transform: translateY(100%) scale(0.5); opacity: 0; }
+            50% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100%) scale(0.5); opacity: 0; }
+        }
+
+        .light-ring {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ringExpand 2s ease-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes ringExpand {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        .star-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="yellow"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>') no-repeat center;
+            background-size: contain;
+            animation: starSpin 2s linear infinite;
+        }
+
+        @keyframes starSpin {
+            0% { transform: rotate(0deg) scale(0.5); opacity: 1; }
+            50% { transform: rotate(180deg) scale(1); opacity: 0.8; }
+            100% { transform: rotate(360deg) scale(0.5); opacity: 1; }
+        }
+
+        .spiral-glow {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.8), transparent);
+            border-radius: 50%;
+            animation: spiralMove 4s ease-in-out infinite;
+        }
+
+        @keyframes spiralMove {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(0) rotate(180deg); opacity: 1; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
+        }
+
+        .blink-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: blinkColor 1.5s infinite;
+        }
+
+        @keyframes blinkColor {
+            0% { background: #FF69B4; box-shadow: 0 0 10px #FF69B4; }
+            33% { background: #FFD700; box-shadow: 0 0 10px #FFD700; }
+            66% { background: #FF1493; box-shadow: 0 0 10px #FF1493; }
+            100% { background: #FF69B4; box-shadow: 0 0 10px #FF69B4; }
+        }
+
+        .light-streak {
+            position: absolute;
+            width: 4px;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), transparent);
+            animation: streakRise 2s linear infinite;
+        }
+
+        @keyframes streakRise {
+            0% { transform: translateY(100%); opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; }
+        }
 
         .particle-swirl { position: absolute; width: 100%; height: 100%; }
         .particle {
@@ -535,7 +630,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Hiệu ứng chấm sáng quanh ảnh khi chuyển */
         .image-sparkle {
             position: absolute;
             width: 100%;
@@ -718,13 +812,9 @@
     <div class="envelope-container" onclick="openEnvelope()">
         <div class="envelope">📩</div>
         <div class="letter"></div>
-        <!-- Hào quang gradient -->
         <div class="gradient-aura"></div>
-        <!-- Sao rơi -->
         <div class="star-fall" id="starFall"></div>
-        <!-- Trái tim bay lên -->
         <div class="heart-rise" id="heartRise"></div>
-        <!-- Văn bản gợi ý -->
         <div class="click-hint">Chạm vào để mở</div>
     </div>
     
@@ -735,18 +825,15 @@
         <p class="emoji-line">🎉🎂🎁</p>
         <div class="running-text-container">
             <div class="running-text">
-                🎉 Chúc chị có một sinh nhật thật vui vẻ, ngày càng xinh đẹp và tràn đầy yêu thương nhó :3 🙈
+                🎉 Hôm nay, thế giới bỗng trở nên rực rỡ hơn bởi vì đây là ngày một thiên thần đã xuất hiện và người đó chính là chị! Chúc chị có một sinh nhật ngập tràn niềm vui, hạnh phúc với những điều kỳ diệu, ngày càng xinh đẹp và tràn đầy yêu thương nháaa 🙈
             </div>
             <div class="glow-dot" style="top: 10%; left: 10%;"></div>
             <div class="glow-dot" style="top: 10%; right: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; left: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; right: 10%;"></div>
         </div>
-        <!-- Thêm hiệu ứng ánh sáng lung linh -->
         <div class="glitter-layer" id="glitterLayer"></div>
-        <!-- Thêm xoáy sáng -->
         <div class="light-spiral" id="lightSpiral"></div>
-        <!-- Thêm bóng bay -->
         <div class="balloon-rise" id="balloonRise"></div>
     </div>
     
@@ -778,7 +865,6 @@
         }
         setInterval(createSparkles, 30);
 
-        // Sao rơi từ trên xuống
         function createStarFall() {
             const starContainer = document.getElementById("starFall");
             function addStar() {
@@ -792,7 +878,6 @@
             setInterval(addStar, 300);
         }
 
-        // Trái tim bay lên
         function createHeartRise() {
             const heartContainer = document.getElementById("heartRise");
             function addHeart() {
@@ -807,7 +892,6 @@
             setInterval(addHeart, 500);
         }
 
-        // Bong bóng bay ra từ góc
         function createBubblesFromCorner() {
             const leftCorner = document.querySelector(".corner-decoration-left");
             const rightCorner = document.querySelector(".corner-decoration-right");
@@ -831,7 +915,6 @@
             setInterval(addBubbleFromRight, 400);
         }
 
-        // Confetti rơi từ góc
         function createConfettiFromCorner() {
             const leftCorner = document.querySelector(".corner-decoration-left");
             const rightCorner = document.querySelector(".corner-decoration-right");
@@ -857,7 +940,6 @@
             setInterval(addConfettiFromRight, 300);
         }
 
-        // Sóng lan tỏa từ góc
         function createWavesFromCorner() {
             const leftCorner = document.querySelector(".corner-decoration-left");
             const rightCorner = document.querySelector(".corner-decoration-right");
@@ -907,13 +989,6 @@
             }, 500);
         }
 
-        function stopFireworks() {
-            if (fireworkInterval) {
-                clearInterval(fireworkInterval);
-            }
-        }
-
-        // Hiệu ứng ánh sáng lung linh
         function createGlitter() {
             const glitterLayer = document.getElementById("glitterLayer");
             function addGlitter() {
@@ -928,7 +1003,6 @@
             setInterval(addGlitter, 200);
         }
 
-        // Hiệu ứng xoáy sáng
         function createLightSpiral() {
             const spiralContainer = document.getElementById("lightSpiral");
             function addSpiral() {
@@ -943,7 +1017,6 @@
             setInterval(addSpiral, 500);
         }
 
-        // Hiệu ứng bóng bay bay lên
         function createBalloons() {
             const balloonContainer = document.getElementById("balloonRise");
             const balloonEmojis = ["🎈", "🎈", "🎈", "🎈"];
@@ -972,11 +1045,9 @@
             const oldImage = slideshowImage;
             oldImage.classList.add('fade-out');
 
-            // Tạo hiệu ứng chấm sáng
             createImageSparkles();
 
             setTimeout(() => {
-                // Chọn ngẫu nhiên ảnh mới
                 let newIndex;
                 do {
                     newIndex = Math.floor(Math.random() * images.length);
@@ -1064,6 +1135,136 @@
             setInterval(addBubble, 300);
         }
 
+        function enhanceLeftDecoration() {
+            const leftDecoration = document.getElementById("leftDecoration");
+
+            function addGlitterParticle() {
+                let particle = document.createElement("div");
+                particle.classList.add("glitter-particle");
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                leftDecoration.appendChild(particle);
+                setTimeout(() => particle.remove(), 3000);
+            }
+            setInterval(addGlitterParticle, 300);
+
+            function addLightRing() {
+                let ring = document.createElement("div");
+                ring.classList.add("light-ring");
+                ring.style.animationDelay = `${Math.random() * 1}s`;
+                leftDecoration.appendChild(ring);
+                setTimeout(() => ring.remove(), 2000);
+            }
+            setInterval(addLightRing, 600);
+
+            function addStarParticle() {
+                let star = document.createElement("div");
+                star.classList.add("star-particle");
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 1}s`;
+                leftDecoration.appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }
+            setInterval(addStarParticle, 400);
+
+            function addSpiralGlow() {
+                let spiral = document.createElement("div");
+                spiral.classList.add("spiral-glow");
+                spiral.style.left = `${Math.random() * 80 + 10}%`;
+                spiral.style.animationDelay = `${Math.random() * 2}s`;
+                leftDecoration.appendChild(spiral);
+                setTimeout(() => spiral.remove(), 4000);
+            }
+            setInterval(addSpiralGlow, 700);
+
+            function addBlinkParticle() {
+                let blink = document.createElement("div");
+                blink.classList.add("blink-particle");
+                blink.style.left = `${Math.random() * 100}%`;
+                blink.style.top = `${Math.random() * 100}%`;
+                blink.style.animationDelay = `${Math.random() * 1}s`;
+                leftDecoration.appendChild(blink);
+                setTimeout(() => blink.remove(), 1500);
+            }
+            setInterval(addBlinkParticle, 500);
+
+            function addLightStreak() {
+                let streak = document.createElement("div");
+                streak.classList.add("light-streak");
+                streak.style.left = `${Math.random() * 100}%`;
+                streak.style.animationDelay = `${Math.random() * 1}s`;
+                leftDecoration.appendChild(streak);
+                setTimeout(() => streak.remove(), 2000);
+            }
+            setInterval(addLightStreak, 600);
+        }
+
+        function enhanceRightDecoration() {
+            const rightDecoration = document.getElementById("rightDecoration");
+
+            function addGlitterParticle() {
+                let particle = document.createElement("div");
+                particle.classList.add("glitter-particle");
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                rightDecoration.appendChild(particle);
+                setTimeout(() => particle.remove(), 3000);
+            }
+            setInterval(addGlitterParticle, 300);
+
+            function addLightRing() {
+                let ring = document.createElement("div");
+                ring.classList.add("light-ring");
+                ring.style.animationDelay = `${Math.random() * 1}s`;
+                rightDecoration.appendChild(ring);
+                setTimeout(() => ring.remove(), 2000);
+            }
+            setInterval(addLightRing, 600);
+
+            function addStarParticle() {
+                let star = document.createElement("div");
+                star.classList.add("star-particle");
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 1}s`;
+                rightDecoration.appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }
+            setInterval(addStarParticle, 400);
+
+            function addSpiralGlow() {
+                let spiral = document.createElement("div");
+                spiral.classList.add("spiral-glow");
+                spiral.style.left = `${Math.random() * 80 + 10}%`;
+                spiral.style.animationDelay = `${Math.random() * 2}s`;
+                rightDecoration.appendChild(spiral);
+                setTimeout(() => spiral.remove(), 4000);
+            }
+            setInterval(addSpiralGlow, 700);
+
+            function addBlinkParticle() {
+                let blink = document.createElement("div");
+                blink.classList.add("blink-particle");
+                blink.style.left = `${Math.random() * 100}%`;
+                blink.style.top = `${Math.random() * 100}%`;
+                blink.style.animationDelay = `${Math.random() * 1}s`;
+                rightDecoration.appendChild(blink);
+                setTimeout(() => blink.remove(), 1500);
+            }
+            setInterval(addBlinkParticle, 500);
+
+            function addLightStreak() {
+                let streak = document.createElement("div");
+                streak.classList.add("light-streak");
+                streak.style.left = `${Math.random() * 100}%`;
+                streak.style.animationDelay = `${Math.random() * 1}s`;
+                rightDecoration.appendChild(streak);
+                setTimeout(() => streak.remove(), 2000);
+            }
+            setInterval(addLightStreak, 600);
+        }
+
         function openEnvelope() {
             let envelopeContainer = document.querySelector(".envelope-container");
             let birthdayCard = document.getElementById("birthdayCard");
@@ -1098,9 +1299,8 @@
                         createLightSpiral();
                         createBalloons();
                         startFireworks(cardRect);
-                        setTimeout(() => {
-                            stopFireworks();
-                        }, 15000);
+                        enhanceLeftDecoration();
+                        enhanceRightDecoration();
                     }, 200);
                 }, 1000);
             }
@@ -1124,7 +1324,6 @@
             }
         }
 
-        // Khởi động các hiệu ứng ngay khi trang tải
         createStarFall();
         createHeartRise();
         createBubblesFromCorner();
