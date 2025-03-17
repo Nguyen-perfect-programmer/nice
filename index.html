@@ -349,7 +349,7 @@
             opacity: 0;
             transition: opacity 1s ease-in-out, transform 0.5s ease;
             animation: cardPop 0.8s ease-out forwards;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             animation: rainbowGlow 4s ease-in-out infinite;
             z-index: 5;
@@ -655,7 +655,7 @@
         }
 
         .message-smooth {
-            font-size: clamp(1.5rem, 3vw, 2rem); 
+            font-size: clamp(0.8rem, 2.5vw, 1.8rem);
             font-weight: bold;
             color: #D63384;
             text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
@@ -663,10 +663,22 @@
             animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
             position: relative;
             z-index: 6;
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            max-width: 100%; 
+        }
+
+        /* Giữ giao diện nowrap cho màn hình lớn (laptop) */
+        @media (min-width: 601px) {
+            .message-smooth {
+                white-space: nowrap;
+            }
+        }
+
+        /* Tối ưu cho màn hình nhỏ (điện thoại) */
+        @media (max-width: 600px) {
+            .message-smooth {
+                font-size: clamp(0.6rem, 1.8vw, 0.9rem);
+                line-height: 1.2; /* Tăng khoảng cách dòng để chữ không bị dính nhau */
+                white-space: normal; /* Cho phép xuống dòng tự nhiên */
+            }
         }
 
         @keyframes bounceSmooth {
@@ -678,6 +690,18 @@
             0% { color: #D63384; text-shadow: 0 0 10px rgba(214, 51, 132, 0.5); }
             50% { color: #FF1493; text-shadow: 0 0 20px rgba(255, 20, 147, 0.8); }
             100% { color: #D63384; text-shadow: 0 0 10px rgba(214, 51, 132, 0.5); }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 8px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .message-smooth {
+                font-size: clamp(0.8rem, 2.5vw, 1.8rem);
+            }
         }
 
         .emoji-line {
@@ -844,12 +868,6 @@
             .card { padding: 10px; }
             .toggle-message-btn { padding: 6px 12px; font-size: 14px; }
         }
-
-        @media (min-width: 1024px) {
-            .message-smooth {
-                font-size: clamp(1.5rem, 2.5vw, 2rem); 
-            }
-        }
     </style>
 </head>
 <body>
@@ -877,7 +895,7 @@
     <div class="card" id="birthdayCard">
         <div class="image-sparkle" id="imageSparkle"></div>
         <img src="images/image.jpg" alt="Happy Birthday" class="image" id="slideshowImage" loading="lazy">
-        <p class="message-smooth">Happy BirthDay Nguyễn Trúc Phương</p>
+        <p class="message-smooth">Happy BirthDay<br>Nguyễn Trúc Phương</p>
         <p class="emoji-line">🎉🎂🎁</p>
         <div class="running-text-container" id="runningTextContainer">
             <div class="running-text">
@@ -1316,7 +1334,7 @@
                 if (i < message.length) {
                     hiddenMessage.innerHTML += message.charAt(i);
                     i++;
-                    setTimeout(type, 50); 
+                    setTimeout(type, 50);
                 }
             }
             type();
