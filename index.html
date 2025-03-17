@@ -655,7 +655,7 @@
         }
 
         .message-smooth {
-            font-size: clamp(1rem, 2.5vw, 1.8rem);
+            font-size: clamp(1.5rem, 3vw, 2rem); 
             font-weight: bold;
             color: #D63384;
             text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
@@ -663,7 +663,10 @@
             animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
             position: relative;
             z-index: 6;
-            white-space: nowrap;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            max-width: 100%; 
         }
 
         @keyframes bounceSmooth {
@@ -844,7 +847,7 @@
 
         @media (min-width: 1024px) {
             .message-smooth {
-                font-size: clamp(1rem, 2.5vw, 1.8rem);
+                font-size: clamp(1.5rem, 2.5vw, 2rem); 
             }
         }
     </style>
@@ -1313,7 +1316,7 @@
                 if (i < message.length) {
                     hiddenMessage.innerHTML += message.charAt(i);
                     i++;
-                    setTimeout(type, 50);
+                    setTimeout(type, 50); 
                 }
             }
             type();
