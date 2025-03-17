@@ -333,7 +333,7 @@
 
         .card {
             position: relative;
-            width: clamp(300px, 90vw, 600px);
+            width: clamp(300px, 90vw, 800px); /* Tăng giới hạn tối đa lên 800px */
             margin: 5vw 2vw;
             padding: clamp(10px, 3vw, 20px);
             background: white;
@@ -655,7 +655,7 @@
         }
 
         .message-smooth {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-size: clamp(1.5rem, 3vw, 2.5rem); /* Giảm từ 5vw xuống 3vw để vừa trên laptop */
             font-weight: bold;
             color: #D63384;
             text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
@@ -663,6 +663,7 @@
             animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
             position: relative;
             z-index: 6;
+            white-space: nowrap; /* Ngăn chữ xuống dòng */
         }
 
         @keyframes bounceSmooth {
@@ -839,6 +840,13 @@
         @media (max-width: 600px) {
             .card { padding: 10px; }
             .toggle-message-btn { padding: 6px 12px; font-size: 14px; }
+        }
+
+        /* Điều chỉnh cho màn hình laptop */
+        @media (min-width: 1024px) {
+            .message-smooth {
+                font-size: clamp(1.5rem, 2.5vw, 2rem); /* Giảm kích thước chữ trên màn hình lớn */
+            }
         }
     </style>
 </head>
