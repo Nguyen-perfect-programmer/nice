@@ -349,7 +349,7 @@
             opacity: 0;
             transition: opacity 1s ease-in-out, transform 0.5s ease;
             animation: cardPop 0.8s ease-out forwards;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
             animation: rainbowGlow 4s ease-in-out infinite;
             z-index: 5;
@@ -655,7 +655,7 @@
         }
 
         .message-smooth {
-            font-size: clamp(0.8rem, 2.5vw, 1.8rem);
+            font-size: clamp(1.5rem, 3vw, 2rem); 
             font-weight: bold;
             color: #D63384;
             text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
@@ -663,21 +663,23 @@
             animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
             position: relative;
             z-index: 6;
+            white-space: nowrap; /* Mặc định giữ một dòng cho màn hình lớn */
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            max-width: 100%; 
         }
 
-        /* Giữ giao diện nowrap cho màn hình lớn (laptop) */
-        @media (min-width: 601px) {
+        @media (max-width: 600px) {
             .message-smooth {
-                white-space: nowrap;
+                white-space: normal; /* Cho phép xuống dòng trên điện thoại */
+                font-size: clamp(1.2rem, 2.5vw, 1.5rem); /* Giảm nhẹ kích thước chữ để vừa màn hình nhỏ */
+                line-height: 1.2; /* Khoảng cách dòng để dễ đọc */
             }
         }
 
-        /* Tối ưu cho màn hình nhỏ (điện thoại) */
-        @media (max-width: 600px) {
+        @media (min-width: 601px) {
             .message-smooth {
-                font-size: clamp(0.6rem, 1.8vw, 0.9rem);
-                line-height: 1.2; /* Tăng khoảng cách dòng để chữ không bị dính nhau */
-                white-space: normal; /* Cho phép xuống dòng tự nhiên */
+                white-space: nowrap; /* Đảm bảo một dòng trên laptop */
             }
         }
 
@@ -690,18 +692,6 @@
             0% { color: #D63384; text-shadow: 0 0 10px rgba(214, 51, 132, 0.5); }
             50% { color: #FF1493; text-shadow: 0 0 20px rgba(255, 20, 147, 0.8); }
             100% { color: #D63384; text-shadow: 0 0 10px rgba(214, 51, 132, 0.5); }
-        }
-
-        @media (max-width: 600px) {
-            .card {
-                padding: 8px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .message-smooth {
-                font-size: clamp(0.8rem, 2.5vw, 1.8rem);
-            }
         }
 
         .emoji-line {
@@ -867,6 +857,12 @@
         @media (max-width: 600px) {
             .card { padding: 10px; }
             .toggle-message-btn { padding: 6px 12px; font-size: 14px; }
+        }
+
+        @media (min-width: 1024px) {
+            .message-smooth {
+                font-size: clamp(1.5rem, 2.5vw, 2rem); 
+            }
         }
     </style>
 </head>
@@ -1334,7 +1330,7 @@
                 if (i < message.length) {
                     hiddenMessage.innerHTML += message.charAt(i);
                     i++;
-                    setTimeout(type, 50);
+                    setTimeout(type, 50); 
                 }
             }
             type();
