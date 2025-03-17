@@ -879,9 +879,7 @@
             <div class="glow-dot" style="bottom: 10%; right: 10%;"></div>
         </div>
         <button class="toggle-message-btn" onclick="toggleMessage()">Ẩn/Hiện Lời Chúc 💌</button>
-        <div class="hidden-message" id="hiddenMessage">
-            🎉 Hôm nay, thế giới bỗng trở nên rực rỡ hơn bởi vì đây là ngày một thiên thần đã xuất hiện và người đó chính là chị! Chúc chị có một sinh nhật ngập tràn niềm vui, hạnh phúc với những điều kỳ diệu, ngày càng xinh đẹp và tràn đầy yêu thương nháaa 🙈
-        </div>
+        <div class="hidden-message" id="hiddenMessage"></div>
         <div class="glitter-layer" id="glitterLayer"></div>
         <div class="light-spiral" id="lightSpiral"></div>
         <div class="balloon-rise" id="balloonRise"></div>
@@ -1297,6 +1295,23 @@
             setInterval(addLightStreak, 600);
         }
 
+        function typeMessage() {
+            const message = "🎉 Hôm nay, thế giới bỗng trở nên rực rỡ hơn bởi vì đây là ngày một thiên thần đã xuất hiện và người đó chính là chị! Chúc chị có một sinh nhật ngập tràn niềm vui, hạnh phúc với những điều kỳ diệu, ngày càng xinh đẹp và tràn đầy yêu thương nháaa 🙈";
+            const hiddenMessage = document.getElementById("hiddenMessage");
+            hiddenMessage.innerHTML = "";
+            hiddenMessage.style.display = "block";
+            document.getElementById("runningTextContainer").style.display = "none";
+            let i = 0;
+            function type() {
+                if (i < message.length) {
+                    hiddenMessage.innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(type, 50); // Tốc độ gõ chữ (50ms mỗi ký tự)
+                }
+            }
+            type();
+        }
+
         function toggleMessage() {
             const hiddenMessage = document.getElementById("hiddenMessage");
             const runningTextContainer = document.getElementById("runningTextContainer");
@@ -1304,8 +1319,7 @@
                 hiddenMessage.style.display = "none";
                 runningTextContainer.style.display = "flex";
             } else {
-                hiddenMessage.style.display = "block";
-                runningTextContainer.style.display = "none";
+                typeMessage();
             }
         }
 
