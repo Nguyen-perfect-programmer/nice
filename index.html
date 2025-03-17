@@ -333,7 +333,7 @@
 
         .card {
             position: relative;
-            width: clamp(300px, 90vw, 800px); /* Tăng giới hạn tối đa lên 800px */
+            width: clamp(300px, 90vw, 800px);
             margin: 5vw 2vw;
             padding: clamp(10px, 3vw, 20px);
             background: white;
@@ -655,20 +655,16 @@
         }
 
         .message-smooth {
-    font-size: clamp(1.5rem, 3vw, 2rem); 
-    font-weight: bold;
-    color: #D63384;
-    text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
-    margin-top: 15px;
-    animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
-    position: relative;
-    z-index: 6;
-    white-space: nowrap;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    max-width: 100%; 
-}
-        
+            font-size: clamp(1rem, 2.5vw, 1.8rem);
+            font-weight: bold;
+            color: #D63384;
+            text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
+            margin-top: 15px;
+            animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
+            position: relative;
+            z-index: 6;
+            white-space: nowrap;
+        }
 
         @keyframes bounceSmooth {
             0%, 100% { transform: translateY(0); }
@@ -846,10 +842,9 @@
             .toggle-message-btn { padding: 6px 12px; font-size: 14px; }
         }
 
-        /* Điều chỉnh cho màn hình laptop */
         @media (min-width: 1024px) {
             .message-smooth {
-                font-size: clamp(1.5rem, 2.5vw, 2rem); /* Giảm kích thước chữ trên màn hình lớn */
+                font-size: clamp(1rem, 2.5vw, 1.8rem);
             }
         }
     </style>
@@ -1318,7 +1313,7 @@
                 if (i < message.length) {
                     hiddenMessage.innerHTML += message.charAt(i);
                     i++;
-                    setTimeout(type, 50); // Tốc độ gõ chữ (50ms mỗi ký tự)
+                    setTimeout(type, 50);
                 }
             }
             type();
