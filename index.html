@@ -60,15 +60,15 @@
 
         .corner-decoration-left, .corner-decoration-right {
             position: fixed;
-            width: 60px;
-            height: 60px;
+            width: clamp(40px, 10vw, 60px);
+            height: clamp(40px, 10vw, 60px);
             background: radial-gradient(circle, #FF1493, transparent);
             border-radius: 50%;
             z-index: 5;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
+            font-size: clamp(20px, 5vw, 30px);
             color: #FFD700;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
             animation: rotateAndGlow 3s infinite ease-in-out, bounceAndGlow 2s infinite ease-in-out;
@@ -128,8 +128,8 @@
 
         .corner-wave {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: clamp(40px, 10vw, 60px);
+            height: clamp(40px, 10vw, 60px);
             border: 2px solid rgba(255, 215, 0, 0.5);
             border-radius: 50%;
             animation: waveExpandFromCorner 2s ease-out forwards;
@@ -152,8 +152,8 @@
 
         .envelope-container {
             position: relative;
-            width: 300px;
-            height: 200px;
+            width: min(90vw, 300px);
+            height: min(60vw, 200px);
             cursor: pointer;
             perspective: 1000px;
             transition: all 0.3s ease;
@@ -185,7 +185,7 @@
             transform-origin: top;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.7);
-            font-size: 24px;
+            font-size: clamp(20px, 6vw, 24px);
             animation: envelopeGlow 2s infinite alternate;
         }
 
@@ -258,7 +258,7 @@
             bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 20px;
+            font-size: clamp(16px, 4vw, 20px);
             font-weight: bold;
             color: #FFEA00;
             text-shadow: 0 0 15px rgba(255, 234, 0, 0.9), 0 0 25px rgba(255, 234, 0, 0.7);
@@ -270,6 +270,12 @@
             backdrop-filter: blur(5px);
         }
 
+        @supports not (backdrop-filter: blur(5px)) {
+            .click-hint {
+                background: rgba(0, 0, 0, 0.5);
+            }
+        }
+
         @keyframes hintBlink {
             0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
             50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
@@ -277,7 +283,7 @@
 
         .loading-text {
             color: #FFEA00;
-            font-size: 22px;
+            font-size: clamp(18px, 4vw, 22px);
             font-weight: bold;
             margin-top: 10px;
             text-shadow: 0 0 15px rgba(255, 234, 0, 0.9), 0 0 25px rgba(255, 234, 0, 0.7);
@@ -288,6 +294,12 @@
             backdrop-filter: blur(5px);
         }
 
+        @supports not (backdrop-filter: blur(5px)) {
+            .loading-text {
+                background: rgba(0, 0, 0, 0.5);
+            }
+        }
+
         @keyframes fadeInOut {
             0% { opacity: 0.6; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.05); }
@@ -295,8 +307,8 @@
         }
 
         .letter {
-            width: 320px;
-            height: 220px;
+            width: clamp(280px, 90vw, 320px);
+            height: clamp(180px, 60vw, 220px);
             background: white;
             position: absolute;
             top: 0;
@@ -306,7 +318,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: clamp(16px, 4vw, 18px);
             color: #333;
             text-align: center;
             font-weight: bold;
@@ -321,9 +333,9 @@
 
         .card {
             position: relative;
-            width: 60%;
-            margin: 50px 20px;
-            padding: 20px;
+            width: clamp(300px, 90vw, 600px);
+            margin: 5vw 2vw;
+            padding: clamp(10px, 3vw, 20px);
             background: white;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255, 102, 204, 0.5);
@@ -340,6 +352,7 @@
             overflow: hidden;
             position: relative;
             animation: rainbowGlow 4s ease-in-out infinite;
+            z-index: 5;
         }
 
         @keyframes cardPop {
@@ -353,6 +366,16 @@
             50% { border-color: #FF1493; box-shadow: 0 0 15px #FF1493; }
             75% { border-color: #FF4500; box-shadow: 0 0 15px #FF4500; }
             100% { border-color: #FF69B4; box-shadow: 0 0 15px #FF69B4; }
+        }
+
+        .glitter-layer, .light-spiral, .balloon-rise {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 4;
         }
 
         .glitter {
@@ -389,14 +412,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .light-spiral {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
         .spiral {
             position: absolute;
             width: 20px;
@@ -412,14 +427,6 @@
             100% { transform: scale(2) rotate(360deg); opacity: 0; }
         }
 
-        .balloon-rise {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
         .balloon {
             position: absolute;
             font-size: 20px;
@@ -432,8 +439,8 @@
         }
 
         .side-decoration {
-            width: 120px;
-            height: 450px;
+            width: clamp(80px, 20vw, 120px);
+            height: clamp(300px, 80vh, 450px);
             background: linear-gradient(135deg, rgba(255, 20, 147, 0.8), rgba(255, 215, 0, 0.8));
             border-radius: 20px;
             display: none;
@@ -450,17 +457,8 @@
             100% { box-shadow: 0 0 30px rgba(255, 20, 147, 1), 0 0 40px rgba(255, 215, 0, 1); }
         }
 
-        .side-decoration.left {
-            margin-right: 20px;
-            position: relative;
-            animation: subtleShake 2s ease-in-out infinite;
-        }
-
-        .side-decoration.right {
-            margin-left: 20px;
-            position: relative;
-            animation: subtleShake 2s ease-in-out infinite;
-        }
+        .side-decoration.left { margin-right: 2vw; animation: subtleShake 2s ease-in-out infinite; }
+        .side-decoration.right { margin-left: 2vw; animation: subtleShake 2s ease-in-out infinite; }
 
         @keyframes subtleShake {
             0%, 100% { transform: translateX(0); }
@@ -486,8 +484,8 @@
 
         .light-ring {
             position: absolute;
-            width: 100px;
-            height: 100px;
+            width: clamp(80px, 20vw, 100px);
+            height: clamp(80px, 20vw, 100px);
             border: 2px solid rgba(255, 105, 180, 0.5);
             border-radius: 50%;
             top: 50%;
@@ -592,14 +590,14 @@
 
         .image {
             width: 80%;
-            max-height: 300px;
+            max-height: clamp(200px, 50vh, 300px);
             object-fit: contain;
             display: block;
             margin: 0 auto;
             border-radius: 10px;
             transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 1;
-            z-index: 5;
+            z-index: 6;
             position: relative;
             animation: imageGlow 1.5s infinite alternate;
         }
@@ -637,6 +635,7 @@
             top: 0;
             left: 0;
             pointer-events: none;
+            z-index: 5;
         }
 
         .sparkle-dot {
@@ -656,14 +655,14 @@
         }
 
         .message-smooth {
-            font-size: 36px;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
             font-weight: bold;
             color: #D63384;
             text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.5);
             margin-top: 15px;
             animation: bounceSmooth 2s ease-in-out infinite, glowingText 3s ease-in-out infinite;
             position: relative;
-            z-index: 5;
+            z-index: 6;
         }
 
         @keyframes bounceSmooth {
@@ -678,33 +677,33 @@
         }
 
         .emoji-line {
-            font-size: 40px;
+            font-size: clamp(24px, 6vw, 40px);
             color: #D63384;
             margin-top: 10px;
             position: relative;
-            z-index: 5;
+            z-index: 6;
             animation: glowingText 3s ease-in-out infinite;
         }
 
         .running-text-container {
             background-color: #FFF0F5;
-            padding: 10px 20px;
+            padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 20px);
             border-radius: 10px;
             margin-top: 20px;
             overflow: hidden;
             width: 100%;
-            height: 60px;
+            height: clamp(50px, 15vw, 60px);
             border: 1px solid #FF66CC;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
             box-sizing: border-box;
             position: relative;
             display: flex;
             align-items: center;
-            z-index: 5;
+            z-index: 6;
         }
 
         .running-text {
-            font-size: 20px;
+            font-size: clamp(1rem, 3vw, 1.25rem);
             font-weight: bold;
             white-space: nowrap;
             position: absolute;
@@ -719,6 +718,47 @@
             100% { transform: translateX(-100%); }
         }
 
+        .toggle-message-btn {
+            background: #FF69B4;
+            color: white;
+            border: none;
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
+            font-size: clamp(14px, 3vw, 16px);
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, background 0.3s ease;
+            z-index: 10;
+            position: relative;
+        }
+
+        .toggle-message-btn:hover {
+            transform: scale(1.1);
+            background: #FF1493;
+        }
+
+        .hidden-message {
+            display: none;
+            background: #FFF0F5;
+            padding: clamp(10px, 3vw, 15px);
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid #FF66CC;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1), 0 0 15px rgba(255, 102, 204, 0.4);
+            font-size: clamp(16px, 4vw, 18px);
+            color: #FF1493;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
+            z-index: 6;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         .glow-dot {
             position: absolute;
             width: 8px;
@@ -727,6 +767,7 @@
             border-radius: 50%;
             box-shadow: 0 0 15px rgba(255, 215, 0, 1);
             animation: glowBlink 1.5s infinite;
+            z-index: 7;
         }
 
         @keyframes glowBlink {
@@ -753,12 +794,12 @@
         #musicButton {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            right: clamp(20px, 5vw, 40px);
             background: #FF69B4;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: clamp(8px, 2vw, 10px) clamp(16px, 4vw, 20px);
+            font-size: clamp(14px, 3vw, 16px);
             cursor: pointer;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -784,8 +825,8 @@
             border: 8px solid #f3f3f3;
             border-top: 8px solid #FF69B4;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: clamp(40px, 10vw, 60px);
+            height: clamp(40px, 10vw, 60px);
             animation: spin 1s linear infinite;
             z-index: 20;
         }
@@ -793,6 +834,11 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .card { padding: 10px; }
+            .toggle-message-btn { padding: 6px 12px; font-size: 14px; }
         }
     </style>
 </head>
@@ -820,10 +866,10 @@
     
     <div class="card" id="birthdayCard">
         <div class="image-sparkle" id="imageSparkle"></div>
-        <img src="images/image.jpg" alt="Happy Birthday" class="image" id="slideshowImage">
+        <img src="images/image.jpg" alt="Happy Birthday" class="image" id="slideshowImage" loading="lazy">
         <p class="message-smooth">Happy BirthDay Nguyễn Trúc Phương</p>
         <p class="emoji-line">🎉🎂🎁</p>
-        <div class="running-text-container">
+        <div class="running-text-container" id="runningTextContainer">
             <div class="running-text">
                 🎉 Hôm nay, thế giới bỗng trở nên rực rỡ hơn bởi vì đây là ngày một thiên thần đã xuất hiện và người đó chính là chị! Chúc chị có một sinh nhật ngập tràn niềm vui, hạnh phúc với những điều kỳ diệu, ngày càng xinh đẹp và tràn đầy yêu thương nháaa 🙈
             </div>
@@ -831,6 +877,10 @@
             <div class="glow-dot" style="top: 10%; right: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; left: 10%;"></div>
             <div class="glow-dot" style="bottom: 10%; right: 10%;"></div>
+        </div>
+        <button class="toggle-message-btn" onclick="toggleMessage()">Ẩn/Hiện Lời Chúc</button>
+        <div class="hidden-message" id="hiddenMessage">
+            🎉 Hôm nay, thế giới bỗng trở nên rực rỡ hơn bởi vì đây là ngày một thiên thần đã xuất hiện và người đó chính là chị! Chúc chị có một sinh nhật ngập tràn niềm vui, hạnh phúc với những điều kỳ diệu, ngày càng xinh đẹp và tràn đầy yêu thương nháaa 🙈
         </div>
         <div class="glitter-layer" id="glitterLayer"></div>
         <div class="light-spiral" id="lightSpiral"></div>
@@ -854,6 +904,11 @@
         let isPlaying = false;
         let fireworkInterval;
 
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && isPlaying) music.pause();
+            else if (!document.hidden && isPlaying) music.play();
+        });
+
         function createSparkles() {
             let sparkle = document.createElement("div");
             sparkle.classList.add("sparkle");
@@ -862,8 +917,9 @@
             sparkle.style.animationDelay = Math.random() * 1 + "s";
             document.body.appendChild(sparkle);
             setTimeout(() => sparkle.remove(), 2000);
+            setTimeout(createSparkles, 100);
         }
-        setInterval(createSparkles, 30);
+        createSparkles();
 
         function createStarFall() {
             const starContainer = document.getElementById("starFall");
@@ -967,16 +1023,13 @@
                 firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 firework.style.left = x + "px";
                 firework.style.top = y + "px";
-                
                 const angle = Math.random() * Math.PI * 2;
                 const distance = Math.random() * 100;
                 const xOffset = Math.cos(angle) * distance;
                 const yOffset = Math.sin(angle) * distance;
-                
                 firework.style.animation = `firework ${1 + Math.random()}s ease-out forwards`;
                 firework.style.setProperty('--x-offset', xOffset + 'px');
                 firework.style.setProperty('--y-offset', yOffset + 'px');
-                
                 document.body.appendChild(firework);
                 setTimeout(() => firework.remove(), 1500);
             }
@@ -985,7 +1038,7 @@
         function startFireworks(cardRect) {
             fireworkInterval = setInterval(() => {
                 createFirework(cardRect.left + Math.random() * cardRect.width, 
-                             cardRect.top + Math.random() * cardRect.height);
+                              cardRect.top + Math.random() * cardRect.height);
             }, 500);
         }
 
@@ -1000,7 +1053,7 @@
                 glitterLayer.appendChild(glitter);
                 setTimeout(() => glitter.remove(), 3000);
             }
-            setInterval(addGlitter, 200);
+            setInterval(addGlitter, 300);
         }
 
         function createLightSpiral() {
@@ -1029,14 +1082,10 @@
                 balloonContainer.appendChild(balloon);
                 setTimeout(() => balloon.remove(), 5000);
             }
-            setInterval(addBalloon, 800);
+            setInterval(addBalloon, 1000);
         }
 
-        const images = [
-            "images/image.jpg",
-            "images/image2.jpg",
-            "images/image1.jpg",
-        ];
+        const images = ["images/image.jpg", "images/image2.jpg", "images/image1.jpg"];
         let currentImageIndex = 0;
         const slideshowImage = document.getElementById("slideshowImage");
         const imageSparkle = document.getElementById("imageSparkle");
@@ -1044,22 +1093,17 @@
         function changeImage() {
             const oldImage = slideshowImage;
             oldImage.classList.add('fade-out');
-
             createImageSparkles();
-
             setTimeout(() => {
                 let newIndex;
                 do {
                     newIndex = Math.floor(Math.random() * images.length);
                 } while (newIndex === currentImageIndex);
                 currentImageIndex = newIndex;
-
                 oldImage.src = images[currentImageIndex];
                 oldImage.classList.remove('fade-out');
                 oldImage.classList.add('fade-in');
-                setTimeout(() => {
-                    oldImage.classList.remove('fade-in');
-                }, 1200);
+                setTimeout(() => oldImage.classList.remove('fade-in'), 1200);
             }, 1200);
         }
 
@@ -1137,7 +1181,6 @@
 
         function enhanceLeftDecoration() {
             const leftDecoration = document.getElementById("leftDecoration");
-
             function addGlitterParticle() {
                 let particle = document.createElement("div");
                 particle.classList.add("glitter-particle");
@@ -1147,7 +1190,6 @@
                 setTimeout(() => particle.remove(), 3000);
             }
             setInterval(addGlitterParticle, 300);
-
             function addLightRing() {
                 let ring = document.createElement("div");
                 ring.classList.add("light-ring");
@@ -1156,7 +1198,6 @@
                 setTimeout(() => ring.remove(), 2000);
             }
             setInterval(addLightRing, 600);
-
             function addStarParticle() {
                 let star = document.createElement("div");
                 star.classList.add("star-particle");
@@ -1167,7 +1208,6 @@
                 setTimeout(() => star.remove(), 2000);
             }
             setInterval(addStarParticle, 400);
-
             function addSpiralGlow() {
                 let spiral = document.createElement("div");
                 spiral.classList.add("spiral-glow");
@@ -1177,7 +1217,6 @@
                 setTimeout(() => spiral.remove(), 4000);
             }
             setInterval(addSpiralGlow, 700);
-
             function addBlinkParticle() {
                 let blink = document.createElement("div");
                 blink.classList.add("blink-particle");
@@ -1188,7 +1227,6 @@
                 setTimeout(() => blink.remove(), 1500);
             }
             setInterval(addBlinkParticle, 500);
-
             function addLightStreak() {
                 let streak = document.createElement("div");
                 streak.classList.add("light-streak");
@@ -1202,7 +1240,6 @@
 
         function enhanceRightDecoration() {
             const rightDecoration = document.getElementById("rightDecoration");
-
             function addGlitterParticle() {
                 let particle = document.createElement("div");
                 particle.classList.add("glitter-particle");
@@ -1212,7 +1249,6 @@
                 setTimeout(() => particle.remove(), 3000);
             }
             setInterval(addGlitterParticle, 300);
-
             function addLightRing() {
                 let ring = document.createElement("div");
                 ring.classList.add("light-ring");
@@ -1221,7 +1257,6 @@
                 setTimeout(() => ring.remove(), 2000);
             }
             setInterval(addLightRing, 600);
-
             function addStarParticle() {
                 let star = document.createElement("div");
                 star.classList.add("star-particle");
@@ -1232,7 +1267,6 @@
                 setTimeout(() => star.remove(), 2000);
             }
             setInterval(addStarParticle, 400);
-
             function addSpiralGlow() {
                 let spiral = document.createElement("div");
                 spiral.classList.add("spiral-glow");
@@ -1242,7 +1276,6 @@
                 setTimeout(() => spiral.remove(), 4000);
             }
             setInterval(addSpiralGlow, 700);
-
             function addBlinkParticle() {
                 let blink = document.createElement("div");
                 blink.classList.add("blink-particle");
@@ -1253,7 +1286,6 @@
                 setTimeout(() => blink.remove(), 1500);
             }
             setInterval(addBlinkParticle, 500);
-
             function addLightStreak() {
                 let streak = document.createElement("div");
                 streak.classList.add("light-streak");
@@ -1263,6 +1295,18 @@
                 setTimeout(() => streak.remove(), 2000);
             }
             setInterval(addLightStreak, 600);
+        }
+
+        function toggleMessage() {
+            const hiddenMessage = document.getElementById("hiddenMessage");
+            const runningTextContainer = document.getElementById("runningTextContainer");
+            if (hiddenMessage.style.display === "block") {
+                hiddenMessage.style.display = "none";
+                runningTextContainer.style.display = "flex";
+            } else {
+                hiddenMessage.style.display = "block";
+                runningTextContainer.style.display = "none";
+            }
         }
 
         function openEnvelope() {
@@ -1275,17 +1319,14 @@
             if (!envelopeContainer.classList.contains("open")) {
                 envelopeContainer.classList.add("open");
                 loading.style.display = "block";
-
                 setTimeout(() => {
                     envelopeContainer.style.display = "none";
                     loading.style.display = "none";
                     birthdayCard.style.display = "block";
                     leftDecoration.style.display = "block";
                     rightDecoration.style.display = "block";
-                    
                     const cardRect = birthdayCard.getBoundingClientRect();
                     createFirework(cardRect.left + cardRect.width/2, cardRect.top + cardRect.height/2);
-                    
                     setTimeout(() => { 
                         birthdayCard.style.opacity = "1"; 
                         leftDecoration.style.opacity = "1";
@@ -1305,13 +1346,13 @@
                 }, 1000);
             }
         }
-    
+
         function playMusic() {
             music.play().catch(error => console.log("Trình duyệt chặn tự động phát nhạc:", error));
             isPlaying = true;
             musicButton.innerHTML = "🔇 Tắt Nhạc";
         }
-    
+
         function toggleMusic() {
             if (isPlaying) {
                 music.pause();
